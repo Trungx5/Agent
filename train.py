@@ -1,6 +1,6 @@
 """
-train_lstm.py — LSTM-DQN Training for Energy Harvesting IoT
-============================================================
+train.py — Standard DQN Training for Energy Harvesting IoT
+===========================================================
 200 episodes training, 10-minute resolution (144 steps/day).
 Logs solar data to logs/solar_log.csv.
 """
@@ -21,16 +21,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import torch
 
 from env.energy_env          import EnergyHarvestingEnv
-from agent.lstm_dqn_agent    import LSTMDQNAgent
+from agent.dqn_agent         import DQNAgent
 from monitoring.api          import update_stats, get_control, start_api
-from monitoring.plot_results import plot_results_lstm
+from monitoring.plot_results import plot_latest
 
 # ── CLI args ──────────────────────────────────────────────────────────────────
-parser = argparse.ArgumentParser(description="Train LSTM-DQN Energy Agent")
+parser = argparse.ArgumentParser(description="Train DQN Energy Agent")
 parser.add_argument("--episodes",    type=int,   default=1000, help="Total training episodes")
-parser.add_argument("--seq-len",     type=int,   default=8,    help="LSTM history window")
-parser.add_argument("--lstm-hidden", type=int,   default=64,   help="LSTM hidden size")
-parser.add_argument("--dqn-hidden",  type=int,   default=128,  help="DQN head hidden size")
+parser.add_argument("--hidden",      type=int,   default=128,  help="DQN hidden size")
 parser.add_argument("--lr",          type=float, default=1e-3, help="Learning rate")
 parser.add_argument("--no-api",      action="store_true",      help="Disable Flask API")
 parser.add_argument("--port",        type=int,   default=5000, help="Flask API port")
@@ -41,8 +39,8 @@ parser.add_argument("--log-light",   action="store_true", default=True, help="Lo
 args = parser.parse_args()
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
-CHECKPOINT_DIR = "checkpoints_lstm"
-LOG_FILE       = os.path.join("logs", "training_lstm_log.csv")
+CHECKPOINT_DIR = "checkpoints"
+LOG_FILE       = os.path.join("logs", "training_log.csv")
 os.makedirs(CHECKPOINT_DIR, exist_ok=True)
 os.makedirs("logs", exist_ok=True)
 
@@ -53,15 +51,14 @@ print(f"[Train] Using device: {device}")
 
 env = EnergyHarvestingEnv()
 
-feature_dim = int(env.observation_space.shape[0])
+state_dim = int(env.observation_space.shape[0])
 
-agent = LSTMDQNAgent(
-    feature_dim      = feature_dim,
-    seq_len          = args.seq_len,
+agent = DQNAgent(
+    state_dim        = state_dim,
     action_dim       = 3,
-    lstm_hidden      = args.lstm_hidden,
-    lstm_layers      = 1,
-    dqn_hidden       = args.dqn_hidden,
+    use_double       = True,
+    use_dueling      = True,
+    hidden           = args.hidden,
     lr               = args.lr,
     gamma            = 0.99,
     epsilon_start    = 1.0,
@@ -73,7 +70,7 @@ agent = LSTMDQNAgent(
     grad_clip        = 1.0,
     device           = device,
 )
-print(f"[Train] LSTM-DQN parameters: {agent.parameter_count():,}")
+print(f"[Train] DQN parameters: {sum(p.numel() for p in agent.main_net.parameters()):,}")
 
 # ── Auto-resume ───────────────────────────────────────────────────────────────
 existing      = sorted(f for f in os.listdir(CHECKPOINT_DIR) if f.endswith(".pt"))
@@ -97,8 +94,8 @@ update_stats(status="training")
 
 # ── Banner ────────────────────────────────────────────────────────────────────
 print(f"\n{'='*72}")
-print(f"  LSTM-DQN Energy Agent — {args.episodes} episodes")
-print(f"  Device: {agent.device} | seq_len={args.seq_len} | lstm_hidden={args.lstm_hidden}")
+print(f"  DQN Energy Agent — {args.episodes} episodes")
+print(f"  Device: {agent.device} | hidden={args.hidden} | state_dim={state_dim}")
 print(f"  Resolution: 10 min/step, 144 steps/day (full day episodes)")
 print(f"  Solar log: logs/solar_log.csv")
 if not args.no_api:
@@ -123,10 +120,7 @@ for episode in range(start_episode, args.episodes + 1):
         agent.epsilon = float(ctrl["epsilon_override"])
 
     # Episode init
-    agent.reset_history()
     obs, _ = env.reset()
-    seq = agent.push_obs(obs)
-
     total_reward     = 0.0
     total_throughput = 0
     total_drops      = 0
@@ -141,20 +135,18 @@ for episode in range(start_episode, args.episodes + 1):
         if ctrl["action_override"] is not None:
             action = int(ctrl["action_override"])
         else:
-            action = agent.select_action(seq)
+            action = agent.select_action(obs)
 
         next_obs, reward, term, trunc, info = env.step(action)
         done = term or trunc
 
-        next_seq = agent.peek_next_seq(next_obs)
-
         if ctrl["action_override"] is None:
-            agent.store(seq, action, reward, next_seq, float(done))
+            agent.store(obs, action, reward, next_obs, float(done))
             loss = agent.learn()
             if loss is not None:
                 last_loss = loss
 
-        seq = agent.push_obs(next_obs)
+        obs = next_obs
         total_reward     += reward
         total_throughput += info["sent"]
         total_drops      += info["dropped"]
@@ -217,7 +209,7 @@ for episode in range(start_episode, args.episodes + 1):
 
     # Chart
     if episode % args.plot_every == 0:
-        plot_results_lstm()
+        plot_latest()
 
     # Checkpoint
     if episode % args.save_every == 0:
@@ -228,7 +220,7 @@ for episode in range(start_episode, args.episodes + 1):
 # ── Finalize ──────────────────────────────────────────────────────────────────
 env.close()  # Save solar cache
 update_stats(status="done")
-plot_results_lstm()
+plot_latest()
 final_path = os.path.join(CHECKPOINT_DIR, "final.pt")
 agent.save(final_path)
 
