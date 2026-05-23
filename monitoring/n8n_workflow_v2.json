@@ -1,0 +1,353 @@
+{
+  "name": "DQN Agent — Full Control v2",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "minutes", "minutesInterval": 30 }]
+        }
+      },
+      "id": "a-cron",
+      "name": "A: Every 30 min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 160]
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:5000/stats",
+        "options": { "timeout": 5000 }
+      },
+      "id": "a-get-stats",
+      "name": "A: GET /stats",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 160]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "conditions": [{
+            "id": "a-check-status",
+            "leftValue": "={{ $json.status }}",
+            "rightValue": "idle",
+            "operator": { "type": "string", "operation": "notEquals", "caseSensitive": true }
+          }],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a-if-active",
+      "name": "A: Is Active?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 160]
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:5000/chart",
+        "options": {
+          "timeout": 10000,
+          "response": { "response": { "responseFormat": "file" } }
+        }
+      },
+      "id": "a-get-chart",
+      "name": "A: GET /chart",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, 80]
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = $('A: GET /stats').first().json;\nconst ep   = s.episode    || 0;\nconst rew  = (s.reward    || 0);\nconst tp   = s.throughput || 0;\nconst drop = s.drop_rate  || 0;\nconst bat  = (s.battery   || 0) * 100;\nconst eps  = s.epsilon    || 0;\nconst loss = s.loss       || 0;\nconst st   = s.status     || 'unknown';\nconst ao   = s.action_override;\nconst sc   = s.solar_scale || 1.0;\n\nconst statusEmoji = { training:'🟢', done:'✅', paused:'⏸️', idle:'❓' }[st] || '❓';\nconst batFill = Math.max(0, Math.min(10, Math.round(bat/10)));\nconst batBar  = '█'.repeat(batFill) + '░'.repeat(10 - batFill);\n\nconst overrideStr = (ao !== null && ao !== undefined)\n  ? '\\n⚠️ Override: `' + ['Sleep','LowTX','HighTX'][ao] + '`'\n  : '';\n\nconst msg = [\n  statusEmoji + ' *DQN Agent Report*',\n  '📅 Episode: `' + ep + '`',\n  '',\n  '📊 *Metrics*',\n  '  • Reward:      `' + rew.toFixed(2) + '`',\n  '  • Throughput:  `' + tp + ' pkts`',\n  '  • Packet Drop: `' + drop + '`',\n  '  • Battery:     `' + batBar + '` ' + bat.toFixed(1) + '%',\n  '',\n  '🧠 *Training*',\n  '  • ε (Epsilon): `' + eps.toFixed(4) + '`',\n  '  • Loss:        `' + loss.toFixed(6) + '`',\n  '  • Solar scale: `' + sc.toFixed(2) + 'x`',\n  '  • Status:      `' + st + '`' + overrideStr,\n].join('\\n');\n\nreturn [{ json: { text: msg, episode: ep, status: st } }];"
+      },
+      "id": "a-format",
+      "name": "A: Format Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 240]
+    },
+    {
+      "parameters": {
+        "chatId": "5548270393",
+        "text": "={{ $json.text }}",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "id": "a-send-text",
+      "name": "A: Send Stats Text",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1120, 240],
+      "credentials": { "telegramApi": { "id": "telegram-bot-cred", "name": "Telegram Bot" } }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendPhoto",
+        "chatId": "5548270393",
+        "photo": "data",
+        "binaryData": true,
+        "binaryPropertyName": "data",
+        "additionalFields": {
+          "caption": "📈 Training chart — Episode {{ $('A: Format Message').first().json.episode }}"
+        }
+      },
+      "id": "a-send-chart",
+      "name": "A: Send Chart Image",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1120, 80],
+      "credentials": { "telegramApi": { "id": "telegram-bot-cred", "name": "Telegram Bot" } }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "conditions": [{
+            "id": "a-check-done",
+            "leftValue": "={{ $('A: Format Message').first().json.status }}",
+            "rightValue": "done",
+            "operator": { "type": "string", "operation": "equals", "caseSensitive": true }
+          }],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a-if-done",
+      "name": "A: Training Done?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1340, 240]
+    },
+    {
+      "parameters": {
+        "chatId": "5548270393",
+        "text": "🎉 *Training COMPLETE!*\n\nDQN agent đã hoàn thành training.\nChạy `python evaluate.py` để so sánh với baselines.",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "id": "a-send-done",
+      "name": "A: Send Done Alert",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1560, 160],
+      "credentials": { "telegramApi": { "id": "telegram-bot-cred", "name": "Telegram Bot" } }
+    },
+
+    {
+      "parameters": {
+        "updates": ["message"],
+        "additionalFields": {}
+      },
+      "id": "b-tg-trigger",
+      "name": "B: Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 500],
+      "webhookId": "tg-webhook-iot-agent",
+      "credentials": { "telegramApi": { "id": "telegram-bot-cred", "name": "Telegram Bot" } }
+    },
+    {
+      "parameters": {
+        "jsCode": "const text = $json.text || $json.message?.text || '';\nconst chatId = String($json.chat?.id || $json.message?.chat?.id || '5548270393');\nreturn [{ json: { text, chat_id: chatId } }];"
+      },
+      "id": "b-extract",
+      "name": "B: Extract Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 500]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:5000/command",
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={{ { text: $json.text, chat_id: $json.chat_id } }}",
+        "options": { "timeout": 8000 }
+      },
+      "id": "b-post-command",
+      "name": "B: POST /command",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 500]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "conditions": [{
+            "id": "b-check-chart",
+            "leftValue": "={{ $json.send_chart }}",
+            "rightValue": "true",
+            "operator": { "type": "string", "operation": "equals", "caseSensitive": true }
+          }],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b-if-chart",
+      "name": "B: Send Chart?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [900, 500]
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:5000/chart",
+        "options": {
+          "timeout": 10000,
+          "response": { "response": { "responseFormat": "file" } }
+        }
+      },
+      "id": "b-get-chart",
+      "name": "B: GET /chart",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1120, 420]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendPhoto",
+        "chatId": "={{ $('B: Extract Message').first().json.chat_id }}",
+        "photo": "data",
+        "binaryData": true,
+        "binaryPropertyName": "data",
+        "additionalFields": { "caption": "📈 Latest training chart" }
+      },
+      "id": "b-send-chart",
+      "name": "B: Send Chart",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1340, 420],
+      "credentials": { "telegramApi": { "id": "telegram-bot-cred", "name": "Telegram Bot" } }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('B: Extract Message').first().json.chat_id }}",
+        "text": "={{ $('B: POST /command').first().json.reply }}",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "id": "b-send-reply",
+      "name": "B: Send Reply",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1120, 580],
+      "credentials": { "telegramApi": { "id": "telegram-bot-cred", "name": "Telegram Bot" } }
+    },
+
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dashboard",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "c-webhook",
+      "name": "C: Dashboard Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 800],
+      "webhookId": "dashboard-notify-hook"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body  = $json.body || $json;\nconst msg   = body.message || 'Dashboard notification';\nconst src   = body.source  || 'dashboard';\nconst stats = body.stats   || {};\n\nconst ep  = stats.episode  || '?';\nconst bat = ((stats.battery || 0) * 100).toFixed(1);\nconst st  = stats.status   || '?';\n\nconst srcEmoji = { dashboard:'🖥️', agent:'🤖', telegram:'📱' }[src] || '📡';\n\nconst text = [\n  srcEmoji + ' *[' + src.toUpperCase() + '] Notification*',\n  '',\n  msg,\n  '',\n  '📊 Episode: `' + ep + '` | Battery: `' + bat + '%` | Status: `' + st + '`',\n].join('\\n');\n\nreturn [{ json: { text } }];"
+      },
+      "id": "c-format",
+      "name": "C: Format Notification",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 800]
+    },
+    {
+      "parameters": {
+        "chatId": "5548270393",
+        "text": "={{ $json.text }}",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "id": "c-send-notify",
+      "name": "C: Send to Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [680, 800],
+      "credentials": { "telegramApi": { "id": "telegram-bot-cred", "name": "Telegram Bot" } }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"ok\": true }",
+        "options": {}
+      },
+      "id": "c-respond",
+      "name": "C: Respond OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 800]
+    }
+  ],
+
+  "connections": {
+    "A: Every 30 min": {
+      "main": [[{ "node": "A: GET /stats", "type": "main", "index": 0 }]]
+    },
+    "A: GET /stats": {
+      "main": [[{ "node": "A: Is Active?", "type": "main", "index": 0 }]]
+    },
+    "A: Is Active?": {
+      "main": [
+        [
+          { "node": "A: GET /chart",     "type": "main", "index": 0 },
+          { "node": "A: Format Message", "type": "main", "index": 0 }
+        ],
+        []
+      ]
+    },
+    "A: GET /chart": {
+      "main": [[{ "node": "A: Send Chart Image", "type": "main", "index": 0 }]]
+    },
+    "A: Format Message": {
+      "main": [[{ "node": "A: Send Stats Text", "type": "main", "index": 0 }]]
+    },
+    "A: Send Stats Text": {
+      "main": [[{ "node": "A: Training Done?", "type": "main", "index": 0 }]]
+    },
+    "A: Training Done?": {
+      "main": [
+        [{ "node": "A: Send Done Alert", "type": "main", "index": 0 }],
+        []
+      ]
+    },
+
+    "B: Telegram Trigger": {
+      "main": [[{ "node": "B: Extract Message", "type": "main", "index": 0 }]]
+    },
+    "B: Extract Message": {
+      "main": [[{ "node": "B: POST /command", "type": "main", "index": 0 }]]
+    },
+    "B: POST /command": {
+      "main": [[{ "node": "B: Send Chart?", "type": "main", "index": 0 }]]
+    },
+    "B: Send Chart?": {
+      "main": [
+        [{ "node": "B: GET /chart",  "type": "main", "index": 0 }],
+        [{ "node": "B: Send Reply",  "type": "main", "index": 0 }]
+      ]
+    },
+    "B: GET /chart": {
+      "main": [[{ "node": "B: Send Chart", "type": "main", "index": 0 }]]
+    },
+
+    "C: Dashboard Webhook": {
+      "main": [[{ "node": "C: Format Notification", "type": "main", "index": 0 }]]
+    },
+    "C: Format Notification": {
+      "main": [[{ "node": "C: Send to Telegram", "type": "main", "index": 0 }]]
+    },
+    "C: Send to Telegram": {
+      "main": [[{ "node": "C: Respond OK", "type": "main", "index": 0 }]]
+    }
+  },
+
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

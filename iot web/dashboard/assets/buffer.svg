@@ -1,0 +1,18 @@
+<svg width="220" height="130" viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Data buffer device">
+  <defs>
+    <linearGradient id="rack" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#57657a"/>
+      <stop offset="100%" stop-color="#313d4f"/>
+    </linearGradient>
+  </defs>
+  <rect x="22" y="18" width="176" height="94" rx="12" fill="url(#rack)" stroke="#97a9c5" stroke-width="3"/>
+  <rect x="33" y="30" width="154" height="18" rx="5" fill="#111b27"/>
+  <rect x="33" y="56" width="154" height="18" rx="5" fill="#111b27"/>
+  <rect x="33" y="82" width="154" height="18" rx="5" fill="#111b27"/>
+  <g fill="#4fd2ff">
+    <circle cx="45" cy="39" r="3"/>
+    <circle cx="45" cy="65" r="3"/>
+    <circle cx="45" cy="91" r="3"/>
+  </g>
+  <text x="110" y="124" text-anchor="middle" font-size="13" fill="#d9e7ff" font-family="Verdana">DATA BUFFER QUEUE</text>
+</svg>

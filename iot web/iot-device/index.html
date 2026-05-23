@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IoT Device Input</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="layout">
+    <header class="card header">
+      <div>
+        <h1>IoT Device Web</h1>
+        <p>Nhập dữ liệu cảm biến tại đây, Dashboard sẽ đọc ở endpoint <strong>/device-state</strong></p>
+      </div>
+      <span class="chip">PORT 8081</span>
+    </header>
+
+    <section class="card devices">
+      <h2>Thiết bị</h2>
+      <div class="device-grid">
+        <figure><img src="assets/battery.svg" alt="Battery"><figcaption>Rechargeable Battery</figcaption></figure>
+        <figure><img src="assets/solar.svg" alt="Solar"><figcaption>Solar Harvester</figcaption></figure>
+        <figure><img src="assets/buffer.svg" alt="Buffer"><figcaption>Data Buffer</figcaption></figure>
+      </div>
+      <h3>Thiết bị sử dụng năng lượng</h3>
+      <div class="usage-grid">
+        <article class="usage-device">
+          <strong>Camera Sensor</strong>
+          <span>Giám sát hình ảnh</span>
+        </article>
+        <article class="usage-device">
+          <strong>LoRa Transmitter</strong>
+          <span>Truyền gói dữ liệu</span>
+        </article>
+        <article class="usage-device">
+          <strong>Edge MCU</strong>
+          <span>Xử lý cục bộ</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="card controls">
+      <h2>Device Controls</h2>
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>Main Battery (max 500)</span>
+          <strong id="batteryValue">500</strong>
+        </div>
+        <input id="battery" type="range" min="0" max="500" step="1" value="500">
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>Solar Input to Reserve Energy (0-50)</span>
+          <strong id="solarValue">20</strong>
+        </div>
+        <input id="solar" type="range" min="0" max="50" step="1" value="20">
+      </div>
+
+      <div class="slider-group">
+        <div class="input-header">
+          <span>Reserve Transfer (ON/OFF)</span>
+        </div>
+        <label class="toggle-row" for="auxToMainEnabled">
+          <input id="auxToMainEnabled" type="checkbox">
+          ON / OFF
+        </label>
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>Energy per Packet (1-10)</span>
+          <strong id="energyPacketValue">3</strong>
+        </div>
+        <input id="energyPerPacket" type="range" min="1" max="10" step="1" value="3">
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>Energy Usage / sec (0-30)</span>
+          <strong id="usagePerSecValue">5</strong>
+        </div>
+        <input id="usagePerSec" type="range" min="0" max="30" step="1" value="5">
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>Data Generation (1-10)</span>
+          <strong id="dataGenValue">2</strong>
+        </div>
+        <input id="dataGen" type="range" min="1" max="10" step="1" value="2">
+      </div>
+
+      <div class="slider-group">
+        <div class="input-header">
+          <span>Buffer Max (custom)</span>
+        </div>
+        <input id="bufferMax" type="number" min="1" step="1" value="120">
+      </div>
+
+      <div class="status-card" id="statusCard">
+        <h3>System Status</h3>
+        <div class="focus-stats-grid">
+          <div class="focus-stats-box">
+            <span>Total DataGen</span>
+            <strong id="totalDataGen">0</strong>
+          </div>
+          <div class="focus-stats-box">
+            <span>Buffer Max</span>
+            <strong id="bufferMaxView">120</strong>
+          </div>
+          <div class="focus-stats-box">
+            <span>Buffer Occupancy</span>
+            <strong id="bufferOccupancy">0</strong>
+          </div>
+          <div class="focus-stats-box">
+            <span>Reserve Energy (max 200)</span>
+            <strong id="auxBatteryValue">0</strong>
+          </div>
+          <div class="focus-stats-box">
+            <span>Aux to Main</span>
+            <strong id="auxModeText">OFF</strong>
+          </div>
+          <div class="focus-stats-box">
+            <span>System Health</span>
+            <strong id="systemHealthText">ALIVE</strong>
+          </div>
+        </div>
+        <p id="errorText" class="error-text hidden">HE THONG LOI: Total DataGen vuot Buffer Max</p>
+        <p id="deadText" class="error-text dead-text hidden">HE THONG CHET: Battery da ve 0</p>
+        <button id="resetTestBtn" class="reset-btn" type="button">Reset Test State</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

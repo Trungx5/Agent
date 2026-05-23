@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IoT Agent Control Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <main class="layout">
+    <header class="topbar card">
+      <div class="title-wrap">
+        <p class="eyebrow">Ops Console</p>
+        <h1>IoT Monitoring Dashboard</h1>
+        <p>Theo doi trang thai thiet bi theo thoi gian thuc va dieu khien agent nhanh.</p>
+      </div>
+      <div class="topbar-right">
+        <div class="live-indicator" id="liveBadge">
+          <span class="dot"></span>
+          <span id="liveText">LIVE</span>
+        </div>
+        <button id="openDeviceBtn" class="btn ghost" type="button">Open IoT Device Web</button>
+      </div>
+    </header>
+
+    <section class="panel monitor card">
+      <div class="section-head">
+        <h2>Realtime Charts</h2>
+        <span id="sourceText">SOURCE: /device-state (same-origin proxy)</span>
+      </div>
+      <div class="chart-grid">
+        <article class="chart-box">
+          <p>Main Battery (max 500)</p>
+          <div class="chart-row">
+            <canvas id="batteryCanvas" width="520" height="150"></canvas>
+            <aside class="chart-live battery">
+              <span>Live</span>
+              <strong id="batteryLiveValue">0</strong>
+            </aside>
+          </div>
+        </article>
+        <article class="chart-box">
+          <p>Solar Input to Reserve Energy (0-50)</p>
+          <div class="chart-row">
+            <canvas id="solarCanvas" width="520" height="150"></canvas>
+            <aside class="chart-live solar">
+              <span>Live</span>
+              <strong id="solarLiveValue">0</strong>
+            </aside>
+          </div>
+        </article>
+        <article class="chart-box">
+          <p>Energy Usage / sec (0-30)</p>
+          <div class="chart-row">
+            <canvas id="usageCanvas" width="520" height="150"></canvas>
+            <aside class="chart-live usage">
+              <span>Live</span>
+              <strong id="usageLiveValue">0</strong>
+            </aside>
+          </div>
+        </article>
+        <article class="chart-box">
+          <p>Data Generation (1-10)</p>
+          <div class="chart-row">
+            <canvas id="dataGenCanvas" width="520" height="150"></canvas>
+            <aside class="chart-live data-gen">
+              <span>Live</span>
+              <strong id="dataGenLiveValue">0</strong>
+            </aside>
+          </div>
+        </article>
+      </div>
+
+      <h2 class="sub-title">Key Values</h2>
+      <div id="deadBanner" class="dead-banner hidden" role="alert" aria-live="assertive">
+        CRITICAL: HE THONG CHET - BATTERY DA VE 0
+      </div>
+      <div class="data-grid">
+        <article class="state-box"><span>Energy per Packet</span><strong id="energyPacketText">0</strong></article>
+        <article class="state-box"><span>Total DataGen</span><strong id="totalDataGenText">0</strong></article>
+        <article class="state-box"><span>Buffer Occupancy</span><strong id="bufferOccupancyText">0</strong></article>
+        <article class="state-box"><span>Buffer Max (custom)</span><strong id="bufferMaxText">0</strong></article>
+        <article class="state-box"><span>Main Battery</span><strong id="batteryText">0/500</strong></article>
+        <article class="state-box"><span>Reserve Energy</span><strong id="auxBatteryText">0/200</strong></article>
+        <article class="state-box"><span>Aux to Main</span><strong id="auxModeText">OFF</strong></article>
+        <article class="state-box"><span>Buffer Sent</span><strong id="bufferSentText">0</strong></article>
+        <article class="state-box"><span>System Error</span><strong id="systemErrorText">NO</strong></article>
+        <article class="state-box"><span>System Health</span><strong id="systemHealthText">ALIVE</strong></article>
+      </div>
+
+      <section class="rules-box" aria-label="Agent computation rules">
+        <h3>Computation Rules (Agent Readable)</h3>
+        <ul>
+          <li>ReserveEnergy(t+1) = clamp(0..200, ReserveEnergy(t) + SolarInput - TransferAuxToMain).</li>
+          <li>MainBattery(t+1) = clamp(0..500, MainBattery(t) + TransferAuxToMain - UsagePerSec).</li>
+          <li>TotalDataGen(t+1) = TotalDataGen(t) + DataGen.</li>
+          <li>BufferOccupancy = min(TotalDataGen, BufferMax).</li>
+          <li>SystemError = YES khi TotalDataGen &gt; BufferMax.</li>
+          <li>SystemDead = YES khi MainBattery &lt;= 0 (bao do he thong chet).</li>
+          <li>PacketCost = pin mat moi packet (config). EstimatedPackets = floor(max(0, MainBattery) / PacketCost).</li>
+        </ul>
+        <div class="rule-live-grid">
+          <span>Battery Delta/sec: <strong id="batteryDeltaText">0</strong></span>
+          <span>Overflow Amount: <strong id="overflowAmountText">0</strong></span>
+          <span>Estimated Packets: <strong id="estimatedPacketsText">0</strong></span>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel command card">
+      <h2>Agent Controls</h2>
+      <p class="panel-desc">Dieu khien mode nap pin phu, toc do tieu thu pin/giay va pin mat moi goi tin gui.</p>
+      <div class="aux-control-row">
+        <p>Nap nang luong du tru vao pin chinh</p>
+        <button id="enableAuxChargeBtn" class="btn success" type="button">ON</button>
+        <button id="disableAuxChargeBtn" class="btn warn" type="button">OFF</button>
+      </div>
+      <div class="cost-control-box">
+        <h3>Tuning Consumption</h3>
+        <div class="cost-control-grid">
+          <label for="usagePerSecControl">Pin tieu thu / giay</label>
+          <p class="buffer-send-meta"><strong id="usagePerSecControlValue">0</strong> (0-30)</p>
+          <input id="usagePerSecControl" type="range" min="0" max="30" step="1" value="0">
+
+          <label for="energyPerPacketControl">Pin mat / goi tin</label>
+          <p class="buffer-send-meta"><strong id="energyPerPacketControlValue">1</strong> (1-10)</p>
+          <input id="energyPerPacketControl" type="range" min="1" max="10" step="1" value="1">
+        </div>
+      </div>
+      <div class="buffer-send-row">
+        <label for="bufferSendInput">Gui Data Buffer</label>
+        <p class="buffer-send-meta">So luong gui: <strong id="bufferSendValue">0</strong></p>
+        <input id="bufferSendInput" type="range" min="0" max="0" step="1" value="0">
+        <button id="sendBufferBtn" class="btn success" type="button">Gui Data Buffer</button>
+      </div>
+      <section class="throughput-box" aria-label="Throughput chart">
+        <h3>Throughput</h3>
+        <p class="throughput-note">Bieu do duong theo so luong goi tin moi lan gui.</p>
+        <canvas id="throughputCanvas" width="520" height="150"></canvas>
+        <p class="throughput-live">Lan gui gan nhat: <strong id="throughputLiveValue">0</strong></p>
+      </section>
+    </section>
+
+    <section class="panel logs card">
+      <div class="section-head">
+        <h2>Event Log</h2>
+        <p class="log-hint">Chi ghi nhan khi co su kien thay doi hoac phat sinh loi.</p>
+      </div>
+      <ul id="logList"></ul>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

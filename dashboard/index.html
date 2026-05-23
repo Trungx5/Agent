@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IoT Energy Agent Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="grid"></div>
+  </div>
+
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">IoT Energy Harvesting</p>
+        <h1>Agent Control Room</h1>
+        <p class="subtitle">Realtime telemetry, adaptive control, and training status in one view.</p>
+      </div>
+      <div class="status-pill" id="statusPill">STATUS</div>
+    </header>
+
+    <section class="cards">
+      <article class="card">
+        <h3>Battery</h3>
+        <div class="metric">
+          <span id="batteryValue">0.00</span>
+          <span class="unit">%</span>
+        </div>
+        <div class="bar"><div id="batteryBar" class="fill"></div></div>
+      </article>
+
+      <article class="card">
+        <h3>Health</h3>
+        <div class="metric">
+          <span id="healthValue">0.00</span>
+          <span class="unit">%</span>
+        </div>
+        <div class="bar"><div id="healthBar" class="fill health"></div></div>
+      </article>
+
+      <article class="card">
+        <h3>Reward</h3>
+        <div class="metric mono" id="rewardValue">0.00</div>
+        <p class="hint">Current reward</p>
+      </article>
+
+      <article class="card">
+        <h3>Throughput</h3>
+        <div class="metric mono" id="tpValue">0</div>
+        <p class="hint">Packets per episode</p>
+      </article>
+
+      <article class="card">
+        <h3>Drop Rate</h3>
+        <div class="metric mono" id="dropValue">0</div>
+        <p class="hint">Packets dropped</p>
+      </article>
+
+      <article class="card">
+        <h3>Epsilon</h3>
+        <div class="metric mono" id="epsValue">0.000</div>
+        <p class="hint">Exploration rate</p>
+      </article>
+    </section>
+
+    <section class="main-grid">
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Training Chart</h2>
+          <span class="tag">Auto refresh</span>
+        </div>
+        <div class="chart-wrap">
+          <img id="chartImage" src="http://localhost:5000/chart" alt="Training chart" />
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Controls</h2>
+          <span class="tag">Live overrides</span>
+        </div>
+
+        <div class="control-group">
+          <label>Action override</label>
+          <div class="segmented">
+            <button data-action="auto" class="seg active">Auto</button>
+            <button data-action="sleep" class="seg">Sleep</button>
+            <button data-action="low" class="seg">Low TX</button>
+            <button data-action="high" class="seg">High TX</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="epsilon">Epsilon</label>
+          <input type="range" id="epsilon" min="0" max="1" step="0.01" value="0.05" />
+          <div class="row">
+            <span class="mono" id="epsilonLabel">0.05</span>
+            <button class="ghost" id="applyEpsilon">Apply</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="solar">Solar scale</label>
+          <input type="range" id="solar" min="0" max="2" step="0.05" value="1.0" />
+          <div class="row">
+            <span class="mono" id="solarLabel">1.00x</span>
+            <button class="ghost" id="applySolar">Apply</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>Training</label>
+          <div class="row">
+            <button class="primary" id="pauseBtn">Pause</button>
+            <button class="primary" id="resumeBtn">Resume</button>
+            <button class="danger" id="resetBtn">Reset</button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel log">
+      <div class="panel-head">
+        <h2>Command Log</h2>
+        <span class="tag">Last 20 events</span>
+      </div>
+      <div id="logList" class="log-list"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
