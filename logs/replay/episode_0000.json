@@ -1,0 +1,1164 @@
+{
+  "episode": 0,
+  "timestamp": "",
+  "final_reward": 0.0,
+  "final_throughput": 0,
+  "final_drops": 0,
+  "final_battery": 0.0,
+  "final_health": 1.0,
+  "steps": [
+    {
+      "step": 0,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 1,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 2,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 3,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 4,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 5,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 6,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 7,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 8,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 9,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 10,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 11,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 12,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 13,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 14,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 15,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 16,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 17,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 18,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 19,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 20,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 21,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 22,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 23,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 24,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 25,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 26,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 27,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 28,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 29,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 30,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 31,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 32,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 33,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 34,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 35,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 36,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 37,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 38,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 39,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 40,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 41,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 42,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 43,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 44,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 45,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 46,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 47,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 48,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 49,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 50,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 51,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 52,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 53,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 54,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 55,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 56,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 57,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 58,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 59,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 60,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 61,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 62,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 63,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 64,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 65,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 66,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 67,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 68,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 69,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 70,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 71,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 72,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 73,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 74,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 75,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 76,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 77,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 78,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 79,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 80,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 81,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 82,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 83,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 84,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 85,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 86,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 87,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 88,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 89,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 90,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 91,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 92,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 93,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 94,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 95,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 96,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 97,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 98,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 99,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 100,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 101,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 102,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 103,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 104,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 105,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 106,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 107,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 108,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 109,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 110,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 111,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 112,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 113,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 114,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 115,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 116,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 117,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 118,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 119,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 120,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 121,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 122,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 123,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 124,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 125,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 126,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 127,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 128,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 129,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 130,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 131,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 132,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 133,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 134,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 135,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 136,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 137,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 138,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 139,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 140,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 141,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 142,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    },
+    {
+      "step": 143,
+      "battery": 0.0,
+      "solar": 0,
+      "lux": 0,
+      "time_of_day": 0,
+      "hour_min": ""
+    }
+  ],
+  "date": ""
+}

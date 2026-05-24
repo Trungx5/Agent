@@ -52,10 +52,11 @@ class DuelingQNetwork(nn.Module):
 class DQNAgent:
     def __init__(
         self,
-        state_dim:        int   = 6,   # (E, Q, H, ΔH, Health, Forecast)
+        state_dim:        int   = 8,   # 8-dim state
         action_dim:       int   = 3,
         use_double:       bool  = True,
         use_dueling:      bool  = True,
+        hidden:           int   = 128,
         lr:               float = 1e-3,
         gamma:            float = 0.99,
         epsilon_start:    float = 1.0,
@@ -64,7 +65,7 @@ class DQNAgent:
         buffer_size:      int   = 10_000,
         batch_size:       int   = 64,
         target_sync_freq: int   = 100,
-        grad_clip:        float = 1.0,      # NEW: gradient clipping
+        grad_clip:        float = 1.0,
         device:           Optional[str] = None,
     ):
         self.action_dim       = action_dim
@@ -78,14 +79,15 @@ class DQNAgent:
         self.target_sync_freq = target_sync_freq
         self.grad_clip        = grad_clip
         self.steps            = 0
+        self.hidden           = hidden
 
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         print(f"[DQNAgent] Using device: {self.device}")
 
         # Main (online) network + Target network
         net_cls = DuelingQNetwork if self.use_dueling else QNetwork
-        self.main_net   = net_cls(state_dim, action_dim).to(self.device)
-        self.target_net = net_cls(state_dim, action_dim).to(self.device)
+        self.main_net   = net_cls(state_dim, action_dim, hidden).to(self.device)
+        self.target_net = net_cls(state_dim, action_dim, hidden).to(self.device)
         self.target_net.load_state_dict(self.main_net.state_dict())
         self.target_net.eval()
 
